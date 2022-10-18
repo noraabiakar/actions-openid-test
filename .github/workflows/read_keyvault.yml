@@ -1,5 +1,25 @@
-# action.yml
 name: 'Read keyvault secrets'
-description: 'Read keyvault secrets'
-run: |
-  .\keyvault.ps1 @('secret1', 'secret2', 'secret3')
+on: [push]
+
+permissions:
+  id-token: write
+  contents: read
+      
+jobs:
+  read-secrets:
+    environment:
+      name: CI
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - name: Check out repo        
+      uses: actions/checkout@v2
+    - name: 'Read Secrets from keyvault'
+      run: |
+        .\.github\workflows\keyvault.ps1 @('secret1', 'secret2', 'secret3')
+      shell: pwsh
