@@ -20,6 +20,6 @@ jobs:
     - name: Check out repo        
       uses: actions/checkout@v2
     - name: 'Read Secrets from keyvault'
-      run: |
-        .\.github\workflows\keyvault.ps1 @('secret1', 'secret2', 'secret3')
-      shell: pwsh
+      uses: ./.github/actions/read_keyvault
+      with:
+        KEY_ARRAY: ('secret1', 'secret2', 'secret3')
