@@ -1,0 +1,5 @@
+# action.yml
+name: 'Read keyvault secrets'
+description: 'Read keyvault secrets'
+run: |
+  .\keyvault.ps1 @('secret1', 'secret2', 'secret3')
