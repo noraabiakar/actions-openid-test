@@ -18,5 +18,5 @@ foreach($key in $map.Keys)
 {
   $val = $map[$key]
   "$key= $val" >> $env:GITHUB_ENV
-  Write-Host("::add-mask::$val")
+  # Write-Host("::add-mask::$val")
 }
